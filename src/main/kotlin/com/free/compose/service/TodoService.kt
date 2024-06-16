@@ -43,8 +43,6 @@ class TodoService(
     @Transactional
     fun save(todo: String): Todo {
         val newTodo = Todo(content = todo)
-        println("??")
-
         return todoRepository.save(newTodo)
     }
 

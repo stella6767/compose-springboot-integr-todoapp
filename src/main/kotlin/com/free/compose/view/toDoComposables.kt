@@ -136,21 +136,16 @@ fun TodoListPreview() {
     val applicationContext = LocalApplicationContext.current
     val todoViewModel = applicationContext.getBean(TodoViewModel::class.java)
 
-//    var toDos =
-//        remember { mutableStateOf(todoService.findTodosByPage().content.toMutableList()) }
-
     TodoList(
         toDos = todoViewModel.todos.value,
         onCreateItem = {
             todoViewModel.addTodo(it)
         },
         onCheckItem = {
-//            toDos.value = toDos.value.toMutableList().apply {
-//                //set(toDos.value.indexOf(it), Todo(!it.status))
-//            }.toList()
+            todoViewModel.updateTodo(it.id)
         },
         onRemoveItem = {
-            //toDos.value -= it
+            todoViewModel.deleteTodo(it.id)
         }
     )
 }

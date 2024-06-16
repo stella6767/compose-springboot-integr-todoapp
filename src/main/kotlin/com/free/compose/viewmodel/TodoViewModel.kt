@@ -28,7 +28,8 @@ class TodoViewModel(
     // 새로운 Todo를 추가하는 메서드
     fun addTodo(todo: String) {
         val newTodo = todoService.save(todo)
-        todos.value = todos.value + newTodo
+        loadTodos()
+        //todos.value = todos.value + newTodo
     }
 
     // Todo를 업데이트하는 메서드
