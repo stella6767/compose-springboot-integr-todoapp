@@ -1,4 +1,4 @@
-package com.free.compose.ui
+package com.free.compose.view
 
 import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.layout.*
@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import com.free.compose.entity.Todo
 import com.free.compose.service.TodoService
 import com.free.compose.util.LocalApplicationContext
-import org.springframework.data.domain.PageRequest
+import com.free.compose.viewmodel.TodoViewModel
 
 @Composable
 fun TodoList(
@@ -51,6 +51,8 @@ fun TodoList(
 fun TodoInput(
     onCreateItem: (String) -> Unit
 ) = Column {
+
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -132,30 +134,15 @@ fun TodoTheme(content: @Composable () -> Unit) = MaterialTheme(
 fun TodoListPreview() {
 
     val applicationContext = LocalApplicationContext.current
-    val todoService = applicationContext.getBean(TodoService::class.java)
+    val todoViewModel = applicationContext.getBean(TodoViewModel::class.java)
 
-    var toDos =
-        remember { mutableStateOf(todoService.findTodosByPage().content.toMutableList()) }
-
-
-//    val toDos = remember {
-//        mutableStateOf(
-//            listOf(
-//                Todo(0, "Make a list", true),
-//                Todo(1, "Check it twice", false),
-//            )
-//        )
-//    }
-
-
-
-
-
+//    var toDos =
+//        remember { mutableStateOf(todoService.findTodosByPage().content.toMutableList()) }
 
     TodoList(
-        toDos = toDos.value,
+        toDos = todoViewModel.todos.value,
         onCreateItem = {
-            toDos.value += Todo(toDos.value.lastOrNull()?.id?.plus(1) ?: 0, it, false)
+            todoViewModel.addTodo(it)
         },
         onCheckItem = {
 //            toDos.value = toDos.value.toMutableList().apply {
@@ -163,7 +150,7 @@ fun TodoListPreview() {
 //            }.toList()
         },
         onRemoveItem = {
-            toDos.value -= it
+            //toDos.value -= it
         }
     )
 }

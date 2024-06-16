@@ -18,16 +18,12 @@ class TodoService(
     private val todoRepository: TodoRepository
 ) {
 
-
     private val log = KotlinLogging.logger { }
-
     @PostConstruct
     fun init() {
-
         if (todoRepository.findAll().isEmpty()){
             todoRepository.saveAll(createDummyTodos(100))
         }
-
     }
 
     
@@ -47,6 +43,8 @@ class TodoService(
     @Transactional
     fun save(todo: String): Todo {
         val newTodo = Todo(content = todo)
+        println("??")
+
         return todoRepository.save(newTodo)
     }
 
