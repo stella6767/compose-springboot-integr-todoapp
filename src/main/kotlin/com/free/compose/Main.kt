@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.*
 import com.free.compose.ui.TodoList
 import com.free.compose.ui.TodoListPreview
+import com.free.compose.util.LocalApplicationContext
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.WebApplicationType
 import org.springframework.boot.autoconfigure.AutoConfiguration
@@ -40,15 +41,9 @@ fun main(args: Array<String>) {
         .run()
 
     application {
-        App(applicationContext)
-
-//        Window(
-//            onCloseRequest = ::exitApplication,
-//            title = "todo app"
-//
-//        ) {
-//            TodoListPreview()
-//        }
+        CompositionLocalProvider(LocalApplicationContext provides applicationContext){
+            App(applicationContext)
+        }
     }
 
 
@@ -81,11 +76,5 @@ fun ApplicationScope.App(
         TodoListPreview()
     }
 
-
-
-
 }
 
-//val LocalApplicationContext = staticCompositionLocalOf<ApplicationContext> {
-//    error("ApplicationContext not provided")
-//}

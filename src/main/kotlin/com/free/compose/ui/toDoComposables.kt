@@ -18,6 +18,9 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.free.compose.entity.Todo
+import com.free.compose.service.TodoService
+import com.free.compose.util.LocalApplicationContext
+import org.springframework.data.domain.PageRequest
 
 @Composable
 fun TodoList(
@@ -127,23 +130,37 @@ fun TodoTheme(content: @Composable () -> Unit) = MaterialTheme(
 @Preview
 @Composable
 fun TodoListPreview() {
-    val toDos = remember {
-        mutableStateOf(
-            listOf(
-                Todo(0, "Make a list", true),
-                Todo(1, "Check it twice", false),
-            )
-        )
-    }
+
+    val applicationContext = LocalApplicationContext.current
+    val todoService = applicationContext.getBean(TodoService::class.java)
+
+    var toDos =
+        remember { mutableStateOf(todoService.findTodosByPage().content.toMutableList()) }
+
+
+//    val toDos = remember {
+//        mutableStateOf(
+//            listOf(
+//                Todo(0, "Make a list", true),
+//                Todo(1, "Check it twice", false),
+//            )
+//        )
+//    }
+
+
+
+
+
+
     TodoList(
         toDos = toDos.value,
         onCreateItem = {
             toDos.value += Todo(toDos.value.lastOrNull()?.id?.plus(1) ?: 0, it, false)
         },
         onCheckItem = {
-            toDos.value = toDos.value.toMutableList().apply {
-                //set(toDos.value.indexOf(it), Todo(!it.status))
-            }.toList()
+//            toDos.value = toDos.value.toMutableList().apply {
+//                //set(toDos.value.indexOf(it), Todo(!it.status))
+//            }.toList()
         },
         onRemoveItem = {
             toDos.value -= it
