@@ -32,8 +32,6 @@ fun TodoList(
 
     var currentPage = remember { mutableStateOf(0) }
 
-
-
     val toDos = todoViewModel.todos.value
     //val listState = rememberLazyListState()
 
