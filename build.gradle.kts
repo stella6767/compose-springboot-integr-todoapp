@@ -31,12 +31,9 @@ dependencies {
     implementation("io.github.microutils:kotlin-logging:3.0.4")
     implementation("com.linecorp.kotlin-jdsl:jpql-dsl:3.4.1")
     implementation("com.linecorp.kotlin-jdsl:jpql-render:3.4.1")
-    //sql query logging
-    implementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0")
+
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     runtimeOnly("com.h2database:h2")
-
-
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
